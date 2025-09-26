@@ -21,7 +21,7 @@ app.post('/run', async (c) => {
     }
 
     const fullCommand = (args && args.length > 0 ) ? `${cmd} ${args.join(' ')}` : cmd
-
+    console.log(`Executing command: ${fullCommand}`)
     const result = await new Promise((resolve, reject) => {
       exec(fullCommand, (error, stdout, stderr) => {
         if (error) {
