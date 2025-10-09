@@ -29,7 +29,7 @@ app.post('/run', async (c) => {
           return
         }
         if (stderr) {
-          reject(stderr)
+          reject(new Error(stderr))
           return
         }
         resolve(stdout)
@@ -38,11 +38,19 @@ app.post('/run', async (c) => {
 
     return c.json({ result })
   } catch (error) {
-    // const errorMessage = error instanceof Error ? error.message : 'An unknown error occurred'
-    return c.json({ error: error })
-  }
-})
-
+    if (error instanceof Error) {
+      return c.json({
+        error: {
+          name: error.name,
+          message: error.message,
+          stack: error.stack,
+        }
+      })
+    } else {
+      return c.json({ error })
+    }
+}}
+)
 serve({
   fetch: app.fetch,
   port: 3000
