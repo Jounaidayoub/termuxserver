@@ -29,7 +29,7 @@ app.post('/run', async (c) => {
           return
         }
         if (stderr) {
-          reject(new Error(stderr))
+          reject(stderr)
           return
         }
         resolve(stdout)
