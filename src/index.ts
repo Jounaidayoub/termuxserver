@@ -38,8 +38,8 @@ app.post('/run', async (c) => {
 
     return c.json({ result })
   } catch (error) {
-    const errorMessage = error instanceof Error ? error.message : 'An unknown error occurred'
-    return c.json({ error: errorMessage }, 500)
+    // const errorMessage = error instanceof Error ? error.message : 'An unknown error occurred'
+    return c.json({ error: error })
   }
 })
 
